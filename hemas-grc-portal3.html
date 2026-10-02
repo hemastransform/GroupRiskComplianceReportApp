@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hemas Group Risk & Control — Compliance Statements</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-a:#051F26;
+    --bg-b:#073542;
+    --bg-glow:#8A5A2E;
+    --orange:#F0923F;
+    --orange-deep:#C96A2C;
+    --risk-red:#E8604A;
+    --risk-amber:#F0B429;
+    --risk-teal:#3FC7B5;
+    --cat-blue:#4FA8E8;
+    --cat-purple:#B07FE0;
+    --white:#FFFFFF;
+    --ink:#EAF4F3;
+    --muted:#93B7BB;
+    --glass:rgba(255,255,255,0.06);
+    --glass-border:rgba(255,255,255,0.14);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    color:var(--ink);
+    font-family:"Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    line-height:1.6;
+    background:
+      radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1.3px) 0 0/28px 28px,
+      linear-gradient(165deg, var(--bg-b) 0%, var(--bg-a) 52%, #030F13 100%);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{ font-family:"Sora", "Inter", sans-serif; color:var(--white); margin:0; }
+  a{color:inherit;}
+  .container{max-width:1080px; margin:0 auto; padding:0 24px; position:relative; z-index:2;}
+
+  /* ================= ANIMATED RISK-MONITORING BACKGROUND ================= */
+  .bg-fixed{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+  .radar-disc{
+    position:absolute; border-radius:50%;
+    background:conic-gradient(from 0deg, rgba(63,199,181,0.34), rgba(63,199,181,0) 26%, transparent 100%);
+    animation:spin 14s linear infinite;
+  }
+  .radar-disc.r2{
+    background:conic-gradient(from 0deg, rgba(240,146,63,0.30), rgba(240,146,63,0) 26%, transparent 100%);
+    animation-duration:19s; animation-direction:reverse;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .radar-ring{
+    position:absolute; top:50%; left:50%; border-radius:50%;
+    border:1px solid rgba(255,255,255,0.09);
+    transform:translate(-50%,-50%);
+  }
+  .radar-ring.dim{border-color:rgba(255,255,255,0.05);}
+  .blip{
+    position:absolute; border-radius:50%;
+    animation:pulse 2.6s ease-in-out infinite;
+  }
+  .blip.amber{background:var(--risk-amber); box-shadow:0 0 14px 3px rgba(240,180,41,0.7);}
+  .blip.red{background:var(--risk-red); box-shadow:0 0 14px 3px rgba(232,96,74,0.7);}
+  .blip.teal{background:var(--risk-teal); box-shadow:0 0 14px 3px rgba(63,199,181,0.7);}
+  @keyframes pulse{
+    0%{ transform:scale(0.7); opacity:0.9; }
+    70%{ transform:scale(1.9); opacity:0; }
+    100%{ transform:scale(1.9); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .radar-disc{animation:none;}
+    .blip{animation:none; opacity:0.6;}
+  }
+
+  /* ---------------- nav ---------------- */
+  nav.top{
+    position:sticky; top:0; z-index:40;
+    backdrop-filter:blur(10px);
+    background:linear-gradient(180deg, rgba(5,31,38,0.88), rgba(5,31,38,0.45));
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  nav.top .inner{
+    max-width:1080px; margin:0 auto; padding:18px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .wordmark{display:flex; align-items:baseline; gap:10px;}
+  .wordmark .peak{
+    width:0; height:0; border-left:7px solid transparent; border-right:7px solid transparent;
+    border-bottom:11px solid var(--orange); margin-right:2px; transform:translateY(1px);
+  }
+  .wordmark b{font-family:"Sora",sans-serif; font-weight:700; font-size:19px; letter-spacing:0.01em; color:var(--white);}
+  .wordmark span{font-size:12px; letter-spacing:0.08em; color:var(--muted); font-weight:600;}
+  .quick-links{display:flex; gap:22px;}
+  .quick-links a{font-size:13.5px; font-weight:600; color:var(--muted);}
+  .quick-links a:hover{color:var(--white);}
+
+  /* ---------------- hero ---------------- */
+  .hero{position:relative; padding:70px 0 50px;}
+  .eyebrow{
+    font-size:12.5px; font-weight:700; letter-spacing:0.09em; color:var(--orange);
+    margin-bottom:18px; display:block;
+  }
+  .hero h1{font-size:clamp(30px,4.6vw,46px); line-height:1.1; max-width:16ch; margin-bottom:18px;}
+  .hero p{font-size:16px; color:var(--muted); max-width:56ch; margin:0 0 28px;}
+  .meta-row{display:flex; gap:34px; flex-wrap:wrap;}
+  .meta-row div{font-size:12.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;}
+  .meta-row b{display:block; font-family:"Sora",sans-serif; font-size:16px; color:var(--white); text-transform:none; letter-spacing:0; margin-top:4px;}
+
+  /* ---------------- glass ---------------- */
+  .glass{
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    border-radius:var(--radius);
+    backdrop-filter:blur(14px);
+  }
+
+  /* ---------------- process ---------------- */
+  .process{padding:36px 0 8px;}
+  .process-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  .process-grid .step{padding:18px;}
+  .process-grid .n{
+    width:24px; height:24px; border-radius:50%; background:var(--orange); color:#1B1108;
+    font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-bottom:10px;
+  }
+  .process-grid h4{font-size:14px; margin-bottom:4px; font-weight:600;}
+  .process-grid p{font-size:12.5px; color:var(--muted); margin:0;}
+
+  /* ---------------- section head ---------------- */
+  .sec{padding:52px 0; scroll-margin-top:90px;}
+  .sec-head{display:flex; align-items:center; gap:14px; margin-bottom:8px; flex-wrap:wrap;}
+  .sec-head .tag{
+    font-size:11.5px; font-weight:700; letter-spacing:0.04em; padding:5px 12px; border-radius:20px;
+    background:rgba(255,255,255,0.1); color:var(--ink); border:1px solid rgba(255,255,255,0.22);
+  }
+  .sec-head h2{font-size:26px; text-align:center; width:100%;}
+  .sec-desc{color:var(--muted); font-size:14.5px; max-width:62ch; margin:0 0 30px;}
+  #forms .sec-head{justify-content:center;}
+  #forms .sec-desc{text-align:center; margin-left:auto; margin-right:auto;}
+
+  /* ---------------- forms: 4-card grid ---------------- */
+  .card-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .fcard{
+    display:flex; flex-direction:column;
+    padding:22px 20px 24px; min-height:360px;
+    border-top:3px solid var(--bar);
+    position:relative; overflow:hidden;
+  }
+  .fcard .icon{
+    width:42px; height:42px; border-radius:11px; margin-bottom:16px;
+    display:flex; align-items:center; justify-content:center;
+    background:color-mix(in srgb, var(--bar) 20%, transparent);
+    color:var(--bar);
+  }
+  .fcard h3{font-size:18px; margin-bottom:8px;}
+  .fcard p.desc{font-size:13px; color:var(--muted); margin:0 0 16px;}
+  .fcard.fin{--bar:var(--cat-blue);}
+  .fcard.ops{--bar:var(--risk-teal);}
+  .fcard.hr{--bar:var(--cat-purple);}
+  .fcard.it{--bar:var(--orange);}
+
+  .sub-links{display:flex; flex-direction:column; gap:2px;}
+  .sub-links a{
+    display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500;
+    padding:8px 0; color:var(--ink); border-bottom:1px solid rgba(255,255,255,0.07);
+  }
+  .sub-links a:last-child{border-bottom:none;}
+  .sub-links a:hover{color:var(--bar);}
+  .sub-links a.pending{color:var(--muted); pointer-events:none;}
+  .sub-links svg{flex:none; opacity:0.8;}
+
+  .fcard .spacer{flex:1;}
+  .open-btn{
+    margin-top:auto;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    padding:12px 16px; border-radius:10px; font-weight:700; font-size:13.8px;
+    background:color-mix(in srgb, var(--bar) 18%, transparent);
+    color:var(--bar); border:1px solid color-mix(in srgb, var(--bar) 45%, transparent);
+  }
+  .open-btn:hover{background:var(--bar); color:#08161A;}
+  .open-btn.pending{color:var(--muted); border-color:var(--glass-border); background:transparent; pointer-events:none;}
+
+  /* ---------------- guidelines ---------------- */
+  .guide-list{display:flex; flex-direction:column; gap:12px;}
+  .guide-row{display:flex; gap:16px; align-items:flex-start; padding:19px 22px;}
+  .gnum{
+    flex:none; width:26px; height:26px; border-radius:50%; margin-top:1px;
+    background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);
+    color:var(--white); font-family:"Sora",sans-serif; font-size:12.5px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .guide-row h4{font-size:15.5px; margin-bottom:4px; font-weight:600;}
+  .guide-row p{font-size:13.5px; color:var(--muted); margin:0;}
+
+  /* ---------------- support ---------------- */
+  .form-list{display:flex; flex-direction:column; gap:12px;}
+  .faq-row{padding:19px 22px;}
+  .faq-row h4{font-size:15.5px; margin-bottom:6px; font-weight:600;}
+  .faq-row p{font-size:13.5px; color:var(--muted); margin:0; max-width:66ch;}
+  .contact-card{
+    margin-top:14px; padding:22px 26px; display:flex; align-items:center;
+    justify-content:space-between; gap:18px; flex-wrap:wrap;
+  }
+  .contact-card h4{font-size:16px; margin-bottom:4px;}
+  .contact-card p{font-size:13.5px; color:var(--muted); margin:0;}
+  .contact-card a.open-btn{--bar:var(--orange); margin-top:0;}
+
+  /* ---------------- footer ---------------- */
+  footer{padding:36px 0 46px; text-align:center;}
+  footer p{font-size:12.5px; color:var(--muted); margin:4px 0;}
+  footer b{color:var(--ink);}
+
+  @media (max-width:920px){
+    .card-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:640px){
+    .card-grid{grid-template-columns:1fr;}
+    .fcard{min-height:0;}
+    .process-grid{grid-template-columns:1fr 1fr;}
+    .quick-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-fixed" id="bgFixed"></div>
+
+<nav class="top">
+  <div class="inner">
+    <div class="wordmark">
+      <span class="peak"></span>
+      <b>HEMAS</b>
+      <span>RISK &amp; CONTROL</span>
+    </div>
+    <div class="quick-links">
+      <a href="#forms">Forms</a>
+      <a href="#guidelines">Guidelines</a>
+      <a href="#support">Support</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <span class="eyebrow">QUARTERLY COMPLIANCE CYCLE</span>
+    <h1>Every SBU. One quarter. Four statements.</h1>
+    <p>This is where each Strategic Business Unit submits its financial, operational, HR and
+    IT compliance position for the quarter. Pick your category below and open the form.</p>
+    <div class="meta-row">
+      <div>Current cycle<b>Q3 2026</b></div>
+      <div>Submission window closes<b>10 October 2026</b></div>
+      <div>Owner<b>Group Risk &amp; Control</b></div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="process">
+    <div class="process-grid">
+      <div class="glass step"><div class="n">1</div><h4>SBU submits</h4><p>Functional owner completes the statement for their SBU.</p></div>
+      <div class="glass step"><div class="n">2</div><h4>Collected centrally</h4><p>All responses gathered as they come in.</p></div>
+      <div class="glass step"><div class="n">3</div><h4>Consolidated automatically</h4><p>Power Automate rolls responses into the Group reports.</p></div>
+      <div class="glass step"><div class="n">4</div><h4>Tabled to the Committee</h4><p>The Group Audit Committee reviews the position.</p></div>
+    </div>
+  </div>
+
+  <!-- FORMS -->
+  <section class="sec" id="forms">
+    <div class="sec-head"><h2>Compliance declaration forms</h2></div>
+    <p class="sec-desc">Financial has five variants depending on your SBU's status — operational,
+    HR and IT each use one SBU-wide form.</p>
+
+    <div class="card-grid">
+
+      <div class="glass fcard fin">
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg></div>
+        <h3>Financial</h3>
+        <p class="desc">Select your SBU category to submit the financial declaration.</p>
+        <div class="sub-links">
+          <a href="#" target="_blank" rel="noopener" data-form="fin_active"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>Active SBUs</a>
+          <a href="#" target="_blank" rel="noopener" data-form="fin_dormant"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>Dormant SBUs</a>
+          <a href="#" target="_blank" rel="noopener" data-form="fin_atlas"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>Atlas Axillia Singapore</a>
+          <a href="#" target="_blank" rel="noopener" data-form="fin_hcb_bd"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>HCB BD</a>
+          <a href="#" target="_blank" rel="noopener" data-form="fin_shahi_ph"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>SHAHI and PH Resorts</a>
+        </div>
+      </div>
+
+      <div class="glass fcard ops">
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1z"/></svg></div>
+        <h3>Operational</h3>
+        <p class="desc">Submit the SBU-specific operational compliance statement.</p>
+        <div class="spacer"></div>
+        <a class="open-btn" href="#" target="_blank" rel="noopener" data-form="ops_sbu">Open MS Form →</a>
+      </div>
+
+      <div class="glass fcard hr">
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Human Resources</h3>
+        <p class="desc">Submit the SBU-specific HR compliance statement.</p>
+        <div class="spacer"></div>
+        <a class="open-btn" href="#" target="_blank" rel="noopener" data-form="hr_sbu">Open MS Form →</a>
+      </div>
+
+      <div class="glass fcard it">
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 21h8M12 16v5"/></svg></div>
+        <h3>Information Tech</h3>
+        <p class="desc">Submit the SBU-specific IT compliance statement.</p>
+        <div class="spacer"></div>
+        <a class="open-btn" href="#" target="_blank" rel="noopener" data-form="it_sbu">Open MS Form →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GUIDELINES -->
+  <section class="sec" id="guidelines">
+    <div class="sec-head"><span class="tag">Before you submit</span><h2 style="text-align:left;width:auto;">Guidelines</h2></div>
+    <p class="sec-desc" style="margin-left:0;">A statement is only useful to the Audit Committee if it reflects the real
+    position — follow these before you submit.</p>
+    <div class="guide-list">
+      <div class="glass guide-row">
+        <div class="gnum">1</div>
+        <div><h4>Use the right variant</h4><p>Confirm your SBU's status — active, dormant, or a specific jurisdiction/JV — before opening the financial form.</p></div>
+      </div>
+      <div class="glass guide-row">
+        <div class="gnum">2</div>
+        <div><h4>One submission per SBU, per category</h4><p>Nominate a single owner for each statement type so there's no duplicate or conflicting submission.</p></div>
+      </div>
+      <div class="glass guide-row">
+        <div class="gnum">3</div>
+        <div><h4>Disclose exceptions, don't just tick "compliant"</h4><p>Flag control gaps, overdue items or pending remediation with a short note — that's what the Committee actually needs to see.</p></div>
+      </div>
+      <div class="glass guide-row">
+        <div class="gnum">4</div>
+        <div><h4>Keep your evidence on file locally</h4><p>The form captures your position, not the underlying evidence. Retain supporting documents at SBU level in case of an audit query.</p></div>
+      </div>
+      <div class="glass guide-row">
+        <div class="gnum">5</div>
+        <div><h4>Submit before the window closes</h4><p>A late submission holds up consolidation for every other SBU, not just yours.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT -->
+  <section class="sec" id="support">
+    <div class="sec-head"><span class="tag">We're here to help</span><h2 style="text-align:left;width:auto;">Support</h2></div>
+    <p class="sec-desc" style="margin-left:0;">Common questions from SBU teams — and how to reach us for anything else.</p>
+    <div class="form-list">
+      <div class="glass faq-row">
+        <h4>Which financial variant applies to my SBU?</h4>
+        <p>Use "Active SBUs" unless you're officially dormant, based in Singapore (Atlas Axillia),
+        based in Bangladesh (HCB BD), or a SHAHI/PH Resorts joint venture. Not sure? Ask us before submitting.</p>
+      </div>
+      <div class="glass faq-row">
+        <h4>Do I need to submit all four statements?</h4>
+        <p>Yes — financial, operational, HR and IT are usually owned by different people within
+        your SBU, so most SBUs have four separate submissions, not one person submitting all four.</p>
+      </div>
+      <div class="glass faq-row">
+        <h4>What happens after I submit?</h4>
+        <p>Nothing further from you — responses are consolidated automatically into the Group
+        reports tabled to the Audit Committee. No need to compile or forward anything yourself.</p>
+      </div>
+      <div class="glass faq-row">
+        <h4>I made a mistake after submitting — what do I do?</h4>
+        <p>Contact Group Risk &amp; Control directly rather than submitting again, so the
+        correction is reflected before consolidation.</p>
+      </div>
+    </div>
+    <div class="glass contact-card">
+      <div>
+        <h4>Still stuck?</h4>
+        <p>Reach the Group Risk &amp; Control team directly and we'll sort it out.</p>
+      </div>
+      <a class="open-btn" href="mailto:riskandcontrol@hemas.com">Email us</a>
+    </div>
+  </section>
+
+  <!--
+    TO ADD A NEW CARD OR SECTION LATER:
+    Cards: copy one .fcard block inside #forms .card-grid, give it a new class (fin/ops/hr/it or
+    define a new --bar color), swap the icon/title/description, and either a .sub-links list or
+    a single .open-btn with a new data-form key (add that key to FORM_LINKS below too).
+    Sections: copy a <section class="sec" id="yourkey">…</section> block and add a nav link.
+  -->
+
+  <footer>
+    <p><b>Group Risk &amp; Control</b> · Hemas Holdings PLC · Internal use only</p>
+    <p>Questions about a statement or a submission → riskandcontrol@hemas.com</p>
+  </footer>
+</div>
+
+<script>
+  // ---- Microsoft Forms links. Paste each URL in as it becomes available, then republish. ----
+  const FORM_LINKS = {
+    fin_active:  "",
+    fin_dormant: "",
+    fin_atlas:   "",
+    fin_hcb_bd:  "",
+    fin_shahi_ph:"",
+    ops_sbu:     "",
+    hr_sbu:      "",
+    it_sbu:      ""
+  };
+
+  document.querySelectorAll("[data-form]").forEach(link => {
+    const key = link.getAttribute("data-form");
+    const url = FORM_LINKS[key];
+    if (url && url.trim() !== ""){
+      link.href = url;
+    } else {
+      link.href = "#";
+      link.classList.add("pending");
+      if (link.classList.contains("open-btn")) link.textContent = "Link pending";
+    }
+  });
+
+  // ---- animated risk-monitoring background: two rotating radar sweeps + pulsing blips ----
+  const bg = document.getElementById('bgFixed');
+
+  function makeRadar(top, left, size, variant){
+    const wrap = document.createElement('div');
+    wrap.style.position = 'absolute';
+    wrap.style.top = top; wrap.style.left = left;
+    wrap.style.width = size + 'px'; wrap.style.height = size + 'px';
+    wrap.style.transform = 'translate(-50%,-50%)';
+
+    const disc = document.createElement('div');
+    disc.className = 'radar-disc' + (variant === 2 ? ' r2' : '');
+    disc.style.width = '100%'; disc.style.height = '100%';
+    wrap.appendChild(disc);
+
+    [0.98, 0.66, 0.36].forEach((scale, i) => {
+      const ring = document.createElement('div');
+      ring.className = 'radar-ring' + (i > 0 ? ' dim' : '');
+      ring.style.width = (size * scale) + 'px';
+      ring.style.height = (size * scale) + 'px';
+      wrap.appendChild(ring);
+    });
+
+    bg.appendChild(wrap);
+    return wrap;
+  }
+
+  const r1 = makeRadar('8%', '90%', 460, 1);
+  const r2 = makeRadar('88%', '6%', 380, 2);
+
+  const blipSpecs = [
+    {host:r1, top:'30%', left:'62%', size:8,  cls:'amber', delay:'0s'},
+    {host:r1, top:'58%', left:'40%', size:6,  cls:'teal',  delay:'0.9s'},
+    {host:r1, top:'70%', left:'70%', size:7,  cls:'red',   delay:'1.7s'},
+    {host:r2, top:'35%', left:'55%', size:7,  cls:'red',   delay:'0.4s'},
+    {host:r2, top:'62%', left:'32%', size:6,  cls:'amber', delay:'1.3s'},
+    {host:r2, top:'50%', left:'70%', size:6,  cls:'teal',  delay:'2.1s'}
+  ];
+  blipSpecs.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'blip ' + b.cls;
+    el.style.top = b.top; el.style.left = b.left;
+    el.style.width = b.size + 'px'; el.style.height = b.size + 'px';
+    el.style.animationDelay = b.delay;
+    b.host.appendChild(el);
+  });
+</script>
+
+</body>
+</html>
